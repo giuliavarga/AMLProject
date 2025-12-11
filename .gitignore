@@ -1,1 +1,4 @@
 Secondary Papers/
+
+# model checkpoints and large binaries (store externally or use Git LFS)
+checkpoints/
