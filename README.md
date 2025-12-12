@@ -2,6 +2,14 @@
 
 Advanced Machine Learning Project - Phase 1 Setup Complete ✅
 
+## Current Repo Snapshot (Dec 11, 2025)
+- Notebooks to run: DINOv2_Correspondence.ipynb, DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb (no ProjectCode.ipynb).
+- Checkpoints: checkpoints/sam/sam_vit_b_01ec64.pth present; dinov3 checkpoint missing.
+- Data: data/SD4Match/pf-pascal_image_pairs.zip downloaded but not extracted; data/PF-dataset-PASCAL and data/SPair-71k are empty.
+- Outputs: outputs/sam exists but is empty.
+- Git LFS: install before pushing checkpoints (`brew install git-lfs && git lfs install`).
+- Note: Cell numbers referenced later come from the original consolidated notebook; use analogous sections in each backbone-specific notebook.
+
 ---
 
 ## 🚀 Quick Setup Instructions (All OS & Google Colab)
@@ -65,11 +73,14 @@ pip install tqdm          # Progress bars
 
 #### Step 5: Open Jupyter Notebook
 ```bash
-# Start Jupyter
-jupyter notebook ProjectCode.ipynb
+# Start Jupyter with the backbone you want to run
+jupyter notebook DINOv2_Correspondence.ipynb
+# or
+jupyter notebook DINOv3_Correspondence.ipynb
+jupyter notebook SAM_Correspondence.ipynb
 
 # Or use VS Code (if installed)
-code ProjectCode.ipynb
+code DINOv2_Correspondence.ipynb
 ```
 
 ---
@@ -156,56 +167,38 @@ Evaluated on **SD4Match** dataset following strict train/val/test protocol.
 4. Implement advanced refinement methods (GeoAware-SC) for improved accuracy
 5. Provide comprehensive evaluation and analysis
 
-## 📁 Project Structure
+## 📁 Project Structure (current)
 
 ```
 AMLProject/
-├── ProjectCode.ipynb              # 🔴 MAIN NOTEBOOK - Start here!
-├── README.md                       # This file
-├── PHASE1_SUMMARY.md              # Setup completion summary
-├── SETUP_GUIDE.md                 # Detailed setup guide (OS-specific)
-├── QUICK_REFERENCE.md             # Quick reference card
-├── PROJECT_CHECKLIST.md           # Full project checklist
+├── DINOv2_Correspondence.ipynb      # DINOv2 pipeline notebook
+├── DINOv3_Correspondence.ipynb      # DINOv3 pipeline notebook
+├── SAM_Correspondence.ipynb         # SAM pipeline notebook
+├── README.md                        # This file
+├── SETUP_GUIDE.md                   # Setup instructions
+├── PROJECT_CHECKLIST.md             # Roadmap and status
+├── README_BACKBONES.md              # Backbone quickstart
+├── BACKBONE_COMPARISON_REPORT.md    # Backbone analysis
 │
-├── checkpoints/                   # Model checkpoints directory
-│   ├── dinov3/                   # ⚠️ DINOv3 checkpoint (needs download)
-│   │   └── dinov3_vitb14_pretrain.pth
-│   └── sam/                      # ✅ SAM checkpoints (auto-downloaded)
-│       ├── sam_vit_b_01ec64.pth
-│       ├── sam_vit_l_0b3195.pth  (optional)
-│       └── sam_vit_h_4b8939.pth  (optional)
+├── checkpoints/
+│   └── sam/
+│       └── sam_vit_b_01ec64.pth     # Present (Git LFS tracked)
+│   # dinov3 checkpoint not present yet
 │
-├── data/                          # Datasets directory
-│   └── SD4Match/                 # ⚠️ Dataset (needs download)
-│       ├── pf-pascal/            # PF-Pascal benchmark
-│       │   ├── pf-pascal_image_pairs/
-│       │   ├── PF-dataset-PASCAL/
-│       │   └── test_pairs.csv
-│       ├── pf-willow/            # PF-Willow benchmark
-│       │   ├── test_pairs.csv
-│       │   └── PF-dataset/
-│       └── spair-71k/            # SPair-71k benchmark
-│           └── SPair-71k/
+├── data/
+│   ├── SD4Match/
+│   │   └── pf-pascal_image_pairs.zip # Downloaded, needs extraction
+│   ├── PF-dataset-PASCAL/            # Empty placeholder
+│   └── SPair-71k/                    # Empty placeholder
 │
-├── models/                        # Model repositories (auto-cloned)
-│   ├── dinov2/                   # ✅ DINOv2 repo
-│   │   ├── dinov2/              # Package directory
-│   │   ├── hubconf.py
-│   │   ├── requirements.txt
-│   │   └── setup.py
-│   └── dinov3/                   # ✅ DINOv3 repo
-│       ├── dinov3/              # Package directory
-│       ├── hubconf.py
-│       ├── requirements.txt
-│       └── setup.py
+├── models/
+│   ├── dinov2/
+│   └── dinov3/
 │
-├── outputs/                       # Experiment outputs (auto-created)
-│   ├── visualizations/           # Result visualizations
-│   ├── results.json              # Evaluation metrics
-│   └── checkpoints/              # Fine-tuned models (if any)
+├── outputs/
+│   └── sam/                          # Currently empty
 │
-├── utils/                         # Utility scripts (in progress)
-└── SD4Match/                      # SD4Match evaluation code (if downloaded)
+└── utils/                            # Planned utilities
 ```
 
 ## 🚀 Quick Start from Here
@@ -246,17 +239,17 @@ Once setup is complete, uncomment and run **Example cells (47-50)** to verify ev
 
 | Component | Status | Details |
 |-----------|--------|---------|
-| **DINOv2 ViT-B** | ✅ Ready | Fully loaded and tested |
-| **SAM ViT-B** | ✅ Ready | Fully loaded and tested |
-| **DINOv3 ViT-B** | ⚠️ Pending | Repository cloned, checkpoint needed |
-| **SD4Match Dataset** | ⚠️ Pending | Need manual download |
-| **Notebook Infrastructure** | ✅ Complete | 51 cells, all organized |
-| **Dataset Loaders** | ✅ Complete | PFPascalDataset, SPairDataset |
-| **Feature Extraction** | ✅ Complete | DenseFeatureExtractor class |
-| **Matching Algorithms** | ✅ Complete | NN, mutual NN, ratio test support |
-| **PCK Evaluation** | ✅ Complete | Multiple thresholds support |
-| **Visualization Utils** | ✅ Complete | Match display, feature maps |
-| **Documentation** | ✅ Complete | README, setup guide, quick ref |
+| **DINOv2 ViT-B** | ✅ Code ready | Loads via torch.hub; waiting on dataset for real eval |
+| **SAM ViT-B** | ✅ Checkpoint present | sam_vit_b_01ec64.pth downloaded; needs dataset to evaluate |
+| **DINOv3 ViT-B** | ⚠️ Pending | Repository cloned; checkpoint not downloaded |
+| **SD4Match Dataset** | ⚠️ Partial | pf-pascal_image_pairs.zip downloaded (not extracted); pf-willow and spair-71k missing |
+| **Notebook Infrastructure** | ✅ Complete | Organized backbone-specific notebooks |
+| **Dataset Loaders** | ✅ Implemented | PFPascalDataset, SPairDataset present; not yet validated on real data |
+| **Feature Extraction** | ✅ Implemented | DenseFeatureExtractor class |
+| **Matching Algorithms** | ✅ Implemented | NN, mutual NN, ratio test support |
+| **PCK Evaluation** | ✅ Implemented | Multiple thresholds support |
+| **Visualization Utils** | ✅ Implemented | Match display, feature maps |
+| **Documentation** | ✅ Implemented | README, setup guide, quick ref |
 
 ### Implementation Progress
 - **Phase 1** (Infrastructure): ✅ **100% COMPLETE**
@@ -298,16 +291,16 @@ Once setup is complete, uncomment and run **Example cells (47-50)** to verify ev
 
 ### SD4Match Dataset Setup
 
-**Current Status**: Code ready ⚠️, dataset needed ⚠️
+**Current Status**: pf-pascal_image_pairs.zip downloaded ⚠️ (not extracted); pf-willow and spair-71k missing ⚠️
 
-**Steps to Download**:
-1. Clone or visit [SD4Match Repository](https://github.com/ActiveVisionLab/SD4Match)
-2. Follow their dataset download instructions
-3. Place in: `data/SD4Match/`
-4. Verify you have these sub-benchmarks:
-   - `pf-pascal/` - PF-Pascal benchmark (~1,000 image pairs)
-   - `pf-willow/` - PF-Willow benchmark (~900 image pairs)
-   - `spair-71k/` - SPair-71k benchmark (~70,000 image pairs)
+**Steps to Download/Prepare**:
+1. Extract `data/SD4Match/pf-pascal_image_pairs.zip` into `data/SD4Match/pf-pascal/` (should include pf-pascal_image_pairs, PF-dataset-PASCAL, test_pairs.csv).
+2. Clone or visit [SD4Match Repository](https://github.com/ActiveVisionLab/SD4Match) and download remaining splits (pf-willow, spair-71k).
+3. Place all splits under `data/SD4Match/`.
+4. Verify structure:
+  - `pf-pascal/` (after extraction)
+  - `pf-willow/`
+  - `spair-71k/`
 
 **Each benchmark should contain**:
 - Image pairs (source and target images)

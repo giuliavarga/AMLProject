@@ -1,5 +1,12 @@
 # Project Checklist - Semantic Correspondence
 
+## Current Repo Snapshot (Dec 11, 2025)
+- Notebooks: DINOv2_Correspondence.ipynb, DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb (no ProjectCode.ipynb).
+- Checkpoints: checkpoints/sam/sam_vit_b_01ec64.pth present; dinov3 checkpoint missing.
+- Data: data/SD4Match/pf-pascal_image_pairs.zip downloaded but not extracted; data/PF-dataset-PASCAL and data/SPair-71k empty.
+- Outputs: outputs/sam exists but is empty.
+- Git LFS: required for pushing checkpoints (install via `brew install git-lfs && git lfs install`).
+
 ## Phase 1: Setup & Infrastructure ✅
 
 ### Environment Setup
@@ -215,18 +222,19 @@
 ## Immediate Action Items
 
 ### Priority 1 (Critical)
-- [ ] **Request DINOv3 checkpoint access** (whoever)
-- [ ] **Download SD4Match dataset** (whoever)
+- [ ] Install Git LFS locally and run `git lfs install` before pushing checkpoints
+- [ ] Extract `data/SD4Match/pf-pascal_image_pairs.zip` into `data/SD4Match/pf-pascal/`
+- [ ] Request and download DINOv3 checkpoint to `checkpoints/dinov3/dinov3_vitb14_pretrain.pth`
 
 ### Priority 2 (High)
-- [ ] Complete DINOv3 integration
-- [ ] Test all models with real images
-- [ ] Implement dataset loader
+- [ ] Download remaining SD4Match splits (pf-willow, spair-71k) and populate data directory
+- [ ] Validate dataset loaders on real samples after extraction
+- [ ] Run sanity checks for DINOv2 and SAM on a few images
 
 ### Priority 3 (Medium)
-- [ ] Start correspondence implementation
-- [ ] Setup experiment tracking
-- [ ] Begin baseline experiments
+- [ ] Start baseline correspondence runs once data is ready
+- [ ] Setup experiment tracking (wandb/tensorboard)
+- [ ] Populate outputs/ with first baseline results
 
 ---
 
@@ -246,6 +254,6 @@
 
 ---
 
-**Last Updated**: December 10, 2025  
+**Last Updated**: December 11, 2025  
 **Phase Status**: Phase 1 Complete ✅  
 **Next Milestone**: Complete manual setup steps and begin Phase 2

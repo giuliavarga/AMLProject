@@ -1,5 +1,13 @@
 # Semantic Correspondence Project - Setup Guide
 
+## Current Repo Snapshot (Dec 11, 2025)
+- Notebooks to run: DINOv2_Correspondence.ipynb, DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb (no ProjectCode.ipynb).
+- Checkpoints: checkpoints/sam/sam_vit_b_01ec64.pth is present; no DINOv3 checkpoint yet.
+- Data: data/SD4Match/pf-pascal_image_pairs.zip is downloaded but not extracted; data/PF-dataset-PASCAL and data/SPair-71k are currently empty.
+- Outputs: outputs/sam exists but is empty.
+- Git LFS: repository expects Git LFS; install via `brew install git-lfs && git lfs install` before pushing large files.
+- Note: Cell references in this guide reflect the original consolidated notebook; use the equivalent sections in the backbone-specific notebooks.
+
 ## 🚀 Quick Setup (Choose Your Platform)
 
 ### macOS (Intel or Apple Silicon)
@@ -14,9 +22,9 @@ conda install pytorch torchvision torchaudio -c pytorch -y
 # 3. Install dependencies
 pip install opencv-python matplotlib numpy scipy tqdm einops pillow requests timm pandas
 
-# 4. Navigate and open notebook
+# 4. Navigate and open a notebook (choose backbone)
 cd /path/to/AMLProject
-jupyter notebook ProjectCode.ipynb
+jupyter notebook DINOv2_Correspondence.ipynb  # or DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb
 ```
 
 ### Linux (with CUDA GPU)
@@ -31,9 +39,9 @@ conda install pytorch::pytorch pytorch::torchvision pytorch::torchaudio pytorch-
 # 3. Install dependencies
 pip install opencv-python matplotlib numpy scipy tqdm einops pillow requests timm pandas
 
-# 4. Navigate and open notebook
+# 4. Navigate and open a notebook (choose backbone)
 cd /path/to/AMLProject
-jupyter notebook ProjectCode.ipynb
+jupyter notebook DINOv2_Correspondence.ipynb  # or DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb
 ```
 
 ### Windows (CPU or CUDA)
@@ -51,7 +59,7 @@ pip install opencv-python matplotlib numpy scipy tqdm einops pillow requests tim
 
 # 4. Open notebook with Jupyter or VS Code
 cd path\to\AMLProject
-jupyter notebook ProjectCode.ipynb
+jupyter notebook DINOv2_Correspondence.ipynb  # or DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb
 ```
 
 ### Google Colab
@@ -103,29 +111,26 @@ os.makedirs(PROJECT_ROOT, exist_ok=True)
 **Time estimate**: 2-24 hours (depends on checkpoint availability)
 
 #### 2. SD4Match Dataset Download
-**Current Status**: Code ready ✅, dataset needed ⚠️
+**Current Status**: pf-pascal_image_pairs.zip downloaded ⚠️ (not extracted); other splits missing
 
 **What to do**:
 1. Visit [SD4Match Repository](https://github.com/ActiveVisionLab/SD4Match)
 2. Follow their dataset download instructions
-3. You can download one or more of these benchmarks:
-   - **PF-Pascal** (~1,000 image pairs) - Recommended for quick testing
-   - **PF-Willow** (~900 image pairs) - Optional
-   - **SPair-71k** (~70,000 image pairs) - Main benchmark
-4. Place dataset in: `data/SD4Match/`
-5. Verify structure:
-   ```
-   data/SD4Match/
-   ├── pf-pascal/
-   │   ├── pf-pascal_image_pairs/
-   │   ├── PF-dataset-PASCAL/
-   │   └── test_pairs.csv
-   ├── pf-willow/
-   │   ├── test_pairs.csv
-   │   └── PF-dataset/
-   └── spair-71k/
-       └── SPair-71k/
-   ```
+3. Already downloaded: `data/SD4Match/pf-pascal_image_pairs.zip` (extract into `data/SD4Match/pf-pascal/`)
+4. Still needed: pf-willow and spair-71k splits (currently absent)
+5. After extraction, verify structure:
+    ```
+    data/SD4Match/
+    ├── pf-pascal/
+    │   ├── pf-pascal_image_pairs/
+    │   ├── PF-dataset-PASCAL/
+    │   └── test_pairs.csv
+    ├── pf-willow/
+    │   ├── test_pairs.csv
+    │   └── PF-dataset/
+    └── spair-71k/
+         └── SPair-71k/
+    ```
 
 **For Google Colab Users**:
 - Download dataset on your computer first
@@ -136,43 +141,41 @@ os.makedirs(PROJECT_ROOT, exist_ok=True)
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (current)
 
 ```
 AMLProject/
-├── ProjectCode.ipynb                # Main notebook (51 cells)
-├── README.md                        # Project overview (THIS file is SETUP_GUIDE.md)
-├── SETUP_GUIDE.md                   # This file
-├── PHASE1_SUMMARY.md                # Phase 1 summary
-├── QUICK_REFERENCE.md               # Quick command reference
-├── PROJECT_CHECKLIST.md             # Detailed project timeline
+├── DINOv2_Correspondence.ipynb       # DINOv2 pipeline notebook
+├── DINOv3_Correspondence.ipynb       # DINOv3 pipeline notebook
+├── SAM_Correspondence.ipynb          # SAM pipeline notebook
+├── README.md                         # Project overview
+├── SETUP_GUIDE.md                    # This file
+├── PROJECT_CHECKLIST.md              # Roadmap and status
+├── README_BACKBONES.md               # Backbone quickstart
+├── BACKBONE_COMPARISON_REPORT.md     # Detailed backbone analysis
 │
-├── checkpoints/                     # Model checkpoints
-│   ├── dinov3/
-│   │   └── dinov3_vitb14_pretrain.pth      (⚠️ needs download)
+├── checkpoints/
 │   └── sam/
-│       ├── sam_vit_b_01ec64.pth            (✅ auto-downloaded)
-│       ├── sam_vit_l_0b3195.pth            (optional)
-│       └── sam_vit_h_4b8939.pth            (optional)
+│       └── sam_vit_b_01ec64.pth      # Present
+│   # (no dinov3 checkpoint yet)
 │
-├── data/                            # Datasets
-│   └── SD4Match/                   (⚠️ needs download)
-│       ├── pf-pascal/
-│       ├── pf-willow/
-│       └── spair-71k/
+├── data/
+│   ├── SD4Match/
+│   │   └── pf-pascal_image_pairs.zip  # Downloaded, not extracted
+│   ├── PF-dataset-PASCAL/             # Empty placeholder
+│   └── SPair-71k/                     # Empty placeholder
 │
-├── models/                          # Model repositories (auto-cloned)
-│   ├── dinov2/                     (✅ cloned in notebook)
-│   └── dinov3/                     (✅ cloned in notebook)
+├── models/
+│   ├── dinov2/
+│   └── dinov3/
 │
-├── outputs/                         # Results directory (auto-created)
-│   ├── visualizations/             # Result visualizations
-│   ├── results.json                # Evaluation metrics
-│   └── checkpoints/                # Fine-tuned models (if any)
+├── outputs/
+│   └── sam/                           # Currently empty
 │
-├── SD4Match/                        # SD4Match evaluation code (if downloaded)
-└── utils/                           # Utility scripts (planned)
+└── utils/                             # Planned utilities
 ```
+
+Note: Git LFS is enabled for checkpoints/sam/. Install LFS before pushing checkpoints.
 
 ---
 

@@ -1,5 +1,12 @@
 # Semantic Correspondence Project - Backbone Comparison
 
+## Current Repo Snapshot (Dec 11, 2025)
+- Notebooks: DINOv2_Correspondence.ipynb, DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb.
+- Checkpoints: checkpoints/sam/sam_vit_b_01ec64.pth present; dinov3 checkpoint missing.
+- Data: data/SD4Match/pf-pascal_image_pairs.zip downloaded (not extracted); other SD4Match splits absent; PF-dataset-PASCAL and SPair-71k folders empty.
+- Outputs: outputs/sam exists but is empty.
+- Git LFS: install and run `git lfs install` before pushing checkpoints.
+
 ## 📚 Project Overview
 
 This project implements and compares three state-of-the-art vision transformer backbones for semantic correspondence:
@@ -16,21 +23,22 @@ Each backbone is evaluated on standard benchmarks (PF-Pascal, SPair-71k) using P
 
 ```
 AMLProject/
-├── DINOv2_Correspondence.ipynb      # Complete DINOv2 implementation
-├── DINOv3_Correspondence.ipynb      # Complete DINOv3 implementation
-├── SAM_Correspondence.ipynb         # Complete SAM implementation
-├── BACKBONE_COMPARISON_REPORT.md    # Comprehensive analysis & comparisons
+├── DINOv2_Correspondence.ipynb      # DINOv2 pipeline
+├── DINOv3_Correspondence.ipynb      # DINOv3 pipeline
+├── SAM_Correspondence.ipynb         # SAM pipeline
+├── BACKBONE_COMPARISON_REPORT.md    # Analysis & comparisons
 ├── README_BACKBONES.md              # This file
-├── data/                            # Dataset directory
-│   ├── pf-pascal/                   # PF-Pascal dataset
-│   └── spair-71k/                   # SPair-71k dataset
-├── checkpoints/                     # Model checkpoints
-│   ├── sam/                         # SAM checkpoints
-│   └── dinov3/                      # DINOv3 checkpoints (if available)
-└── outputs/                         # Results and visualizations
-    ├── dinov2/
-    ├── dinov3/
-    └── sam/
+├── data/
+│   ├── SD4Match/
+│   │   └── pf-pascal_image_pairs.zip # Downloaded, not extracted
+│   ├── PF-dataset-PASCAL/            # Empty placeholder
+│   └── SPair-71k/                    # Empty placeholder
+├── checkpoints/
+│   └── sam/
+│       └── sam_vit_b_01ec64.pth      # Present
+│   # dinov3 checkpoint not downloaded yet
+└── outputs/
+   └── sam/                          # Currently empty
 ```
 
 ---
@@ -51,10 +59,10 @@ cd "/Users/giuliavarga/Desktop/2. AML/Project/AMLProject"
 ```
 
 3. **Download Datasets**:
-- **PF-Pascal**: https://www.di.ens.fr/willow/research/proposalflow/
+- **PF-Pascal**: https://www.di.ens.fr/willow/research/proposalflow/ (pf-pascal_image_pairs.zip already in data/SD4Match; extract into data/SD4Match/pf-pascal/)
 - **SPair-71k**: http://cvlab.postech.ac.kr/research/SPair-71k/
 
-Extract to `data/pf-pascal/` and `data/spair-71k/`
+Extract to `data/SD4Match/pf-pascal/` and `data/SD4Match/spair-71k/` (pf-willow optional)
 
 4. **Run Notebooks**:
 - Open `DINOv2_Correspondence.ipynb` in VS Code or Jupyter

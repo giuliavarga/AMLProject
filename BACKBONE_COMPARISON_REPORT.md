@@ -5,6 +5,13 @@
 **Date**: December 11, 2025  
 **Task**: Evaluate and compare vision transformer backbones for dense correspondence
 
+**Current Repo Snapshot (Dec 11, 2025)**
+- Notebooks in use: DINOv2_Correspondence.ipynb, DINOv3_Correspondence.ipynb, SAM_Correspondence.ipynb.
+- Checkpoints: sam_vit_b_01ec64.pth present under checkpoints/sam; DINOv3 checkpoint not downloaded yet.
+- Data: data/SD4Match/pf-pascal_image_pairs.zip downloaded but not extracted; other SD4Match splits and PF-dataset-PASCAL/SPair-71k folders are empty.
+- Outputs: outputs/sam exists but is empty (no evaluations saved yet).
+- Git LFS: install and run `git lfs install` before pushing checkpoints to the remote.
+
 ---
 
 ## Executive Summary
