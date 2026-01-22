@@ -1,0 +1,9 @@
+Threshold,Metric,PCK
+0.05,per_keypoint,36.66
+0.10,per_keypoint,50.26
+0.15,per_keypoint,59.60
+0.20,per_keypoint,66.72
+0.05,per_image,33.20
+0.10,per_image,45.88
+0.15,per_image,54.86
+0.20,per_image,62.09
